@@ -1,14 +1,21 @@
-import { Flex, Grid, Heading, Section } from "@radix-ui/themes";
+import { Suspense } from "react";
+import { Flex, Heading, Section } from "@radix-ui/themes";
 
 import { SvgOrderSymbol } from "@/icons";
-import { fetchFilms, fetchPlanets } from "@/planets/services";
-import { PlanetCard } from "@/planets/components";
+import {
+  PlanetList,
+  PlanetListSkeleton,
+  SearchInput,
+} from "@/planets/components";
 
 import styles from "./page.module.scss";
 
-export default async function Home() {
-  const planets = await fetchPlanets();
-  const films = await fetchFilms();
+interface HomeProps {
+  searchParams: Promise<{ search?: string }>;
+}
+
+export default async function Home({ searchParams }: HomeProps) {
+  const { search } = await searchParams;
 
   return (
     <Section size="1">
@@ -18,16 +25,12 @@ export default async function Home() {
           The Jedi Archives: Planets
         </Heading>
       </Flex>
-      <Grid
-        mt="9"
-        columns="repeat(auto-fit, minmax(250px, 1fr))"
-        gapX="4"
-        gapY="5"
-      >
-        {planets.results.map((planet) => (
-          <PlanetCard key={planet.name} planet={planet} films={films.results} />
-        ))}
-      </Grid>
+      <Flex direction="column" mt="6">
+        <SearchInput defaultValue={search} />
+      </Flex>
+      <Suspense key={search} fallback={<PlanetListSkeleton />}>
+        <PlanetList search={search} />
+      </Suspense>
     </Section>
   );
 }
