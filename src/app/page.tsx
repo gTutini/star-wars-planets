@@ -11,11 +11,11 @@ import {
 import styles from "./page.module.scss";
 
 interface HomeProps {
-  searchParams: Promise<{ search?: string }>;
+  searchParams: Promise<{ search?: string; page?: string }>;
 }
 
 export default async function Home({ searchParams }: HomeProps) {
-  const { search } = await searchParams;
+  const { search, page } = await searchParams;
 
   return (
     <Section size="1">
@@ -28,8 +28,8 @@ export default async function Home({ searchParams }: HomeProps) {
       <Flex direction="column" mt="6">
         <SearchInput defaultValue={search} />
       </Flex>
-      <Suspense key={search} fallback={<PlanetListSkeleton />}>
-        <PlanetList search={search} />
+      <Suspense key={`${search}-${page}`} fallback={<PlanetListSkeleton />}>
+        <PlanetList search={search} page={page} />
       </Suspense>
     </Section>
   );
