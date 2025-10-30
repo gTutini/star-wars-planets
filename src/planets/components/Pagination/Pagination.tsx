@@ -1,9 +1,9 @@
 "use client";
 
-import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button, Flex, Text } from "@radix-ui/themes";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { usePagination } from "./usePagination";
 
 export interface PaginationProps {
   hasNext: boolean;
@@ -16,20 +16,17 @@ export function Pagination({
   hasPrevious,
   currentPage,
 }: PaginationProps) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const createPageURL = (pageNumber: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", pageNumber.toString());
-    return `${pathname}?${params.toString()}`;
-  };
+  const { previousPageURL, nextPageURL } = usePagination({
+    hasNext,
+    hasPrevious,
+    currentPage,
+  });
 
   return (
     <Flex justify="center" align="center" gap="4" mt="6">
       <Button variant="soft" disabled={!hasPrevious} asChild={hasPrevious}>
-        {hasPrevious ? (
-          <Link href={createPageURL(currentPage - 1)}>
+        {hasPrevious && previousPageURL ? (
+          <Link href={previousPageURL}>
             <ChevronLeft size={16} />
             Anterior
           </Link>
@@ -46,8 +43,8 @@ export function Pagination({
       </Text>
 
       <Button variant="soft" disabled={!hasNext} asChild={hasNext}>
-        {hasNext ? (
-          <Link href={createPageURL(currentPage + 1)}>
+        {hasNext && nextPageURL ? (
+          <Link href={nextPageURL}>
             Próxima
             <ChevronRight size={16} />
           </Link>
