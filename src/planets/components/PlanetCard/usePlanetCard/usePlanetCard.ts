@@ -4,6 +4,7 @@ import { PlanetCardProps } from "../PlanetCard";
 export type UsePlanetCardProps = Pick<PlanetCardProps, "planet" | "films">;
 
 export function usePlanetCard({ planet, films }: UsePlanetCardProps) {
+  const planetId = planet.url.split("/").filter(Boolean).pop();
   const filmTitles = films
     .filter((film) => film.planets.includes(planet.url))
     .map((film) => film.title);
@@ -31,5 +32,5 @@ export function usePlanetCard({ planet, films }: UsePlanetCardProps) {
     },
   ];
 
-  return { filmTitles, planetData };
+  return { filmTitles, planetData, planetId };
 }
