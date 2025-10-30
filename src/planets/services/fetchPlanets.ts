@@ -22,8 +22,14 @@ export interface PlanetsResponse {
   results: Planet[];
 }
 
-export async function fetchPlanets(): Promise<PlanetsResponse> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/planets`);
+export async function fetchPlanets(search?: string): Promise<PlanetsResponse> {
+  const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/planets`);
+
+  if (search) {
+    url.searchParams.set("search", search);
+  }
+
+  const res = await fetch(url.toString());
 
   if (!res.ok) {
     throw new Error(`Erro ao buscar planetas: ${res.status} ${res.statusText}`);
