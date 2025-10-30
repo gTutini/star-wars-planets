@@ -1,1 +1,1 @@
-export { OrderSymbol } from "./OrderSymbol";
+export { SvgOrderSymbol } from "./OrderSymbol";

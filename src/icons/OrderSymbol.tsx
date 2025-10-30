@@ -1,6 +1,6 @@
 import { AccessibleIcon } from "@radix-ui/themes";
 
-function OrderSymbol({ fill = "#fff" }: { fill?: string }) {
+function SvgOrderSymbol({ fill = "#fff" }: { fill?: string }) {
   return (
     <AccessibleIcon label="Order Symbol">
       <svg
@@ -16,4 +16,4 @@ function OrderSymbol({ fill = "#fff" }: { fill?: string }) {
   );
 }
 
-export { OrderSymbol };
+export { SvgOrderSymbol };
