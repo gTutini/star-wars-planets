@@ -1,0 +1,49 @@
+import { Badge, Card, Flex, Heading, Separator, Text } from "@radix-ui/themes";
+
+import { FilmIcon, EarthIcon } from "lucide-react";
+
+import { Film, Planet } from "@/planets/services";
+import { DataList } from "@/ui/DataList";
+
+import { usePlanetCard } from "./usePlanetCard";
+
+import styles from "./PlanetCard.module.scss";
+
+export interface PlanetCardProps {
+  planet: Planet;
+  films: Film[];
+}
+
+export function PlanetCard({ planet, films }: PlanetCardProps) {
+  const { filmTitles, planetData } = usePlanetCard({ planet, films });
+
+  return (
+    <Card className={styles.card} title={planet.name}>
+      <Flex align="center" gap="2">
+        <EarthIcon size={32} />
+        <Heading as="h3" size="8">
+          {planet.name}
+        </Heading>
+      </Flex>
+      <Separator my="3" size="4" />
+
+      <DataList items={planetData} size="2" />
+
+      {filmTitles.length > 0 && (
+        <>
+          <Flex mt="4" gap="2" align="center">
+            <FilmIcon size={16} />
+            <Text weight="bold">Featured In:</Text>
+          </Flex>
+          <Flex mt="2" gap="2" wrap="wrap">
+            {filmTitles.map((title) => (
+              <Badge variant="soft" radius="full" key={title}>
+                {title}
+              </Badge>
+            ))}
+          </Flex>
+        </>
+      )}
+    </Card>
+  );
+}
