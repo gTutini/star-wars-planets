@@ -14,7 +14,7 @@ export function SearchInput({ defaultValue }: SearchInputProps) {
       <Grid mx="auto" gap="4" align="center" maxWidth="300px">
         <TextField.Root
           name="search"
-          placeholder="Search planets from this galaxy..."
+          placeholder="Search planets..."
           size="3"
           defaultValue={defaultValue}
         >
