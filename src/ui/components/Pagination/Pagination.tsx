@@ -28,29 +28,29 @@ export function Pagination({
         {hasPrevious && previousPageURL ? (
           <Link href={previousPageURL}>
             <ChevronLeft size={16} />
-            Anterior
+            Previous
           </Link>
         ) : (
           <>
             <ChevronLeft size={16} />
-            Anterior
+            Previous
           </>
         )}
       </Button>
 
       <Text size="2" weight="medium">
-        Página {currentPage}
+        Page {currentPage}
       </Text>
 
       <Button variant="soft" disabled={!hasNext} asChild={hasNext}>
         {hasNext && nextPageURL ? (
           <Link href={nextPageURL}>
-            Próxima
+            Next
             <ChevronRight size={16} />
           </Link>
         ) : (
           <>
-            Próxima
+            Next
             <ChevronRight size={16} />
           </>
         )}
