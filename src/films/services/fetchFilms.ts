@@ -11,7 +11,7 @@ export async function fetchFilms(): Promise<FilmsResponse> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/films/`);
 
   if (!res.ok) {
-    throw new Error(`Erro ao buscar filmes: ${res.status} ${res.statusText}`);
+    throw new Error(`Failed to fetch films: ${res.status} ${res.statusText}`);
   }
 
   return res.json();

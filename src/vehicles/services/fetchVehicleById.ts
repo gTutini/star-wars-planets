@@ -6,8 +6,11 @@ export async function fetchVehicleById(id: string): Promise<Vehicle> {
   const res = await fetch(url.toString());
 
   if (!res.ok) {
+    if (res.status === 404) {
+      throw new Error(`Vehicle with ID ${id} not found (404)`);
+    }
     throw new Error(
-      `Erro ao buscar veículo pelo ID ${id}: ${res.status} ${res.statusText}`
+      `Failed to fetch vehicle ${id}: ${res.status} ${res.statusText}`
     );
   }
 

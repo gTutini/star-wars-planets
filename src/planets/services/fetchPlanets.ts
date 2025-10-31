@@ -24,7 +24,7 @@ export async function fetchPlanets(
   const res = await fetch(url.toString());
 
   if (!res.ok) {
-    throw new Error(`Erro ao buscar planetas: ${res.status} ${res.statusText}`);
+    throw new Error(`Failed to fetch planets: ${res.status} ${res.statusText}`);
   }
 
   return res.json();
