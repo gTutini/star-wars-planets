@@ -1,0 +1,1 @@
+export { fetchPeopleById } from "./fetchPeopleById";
