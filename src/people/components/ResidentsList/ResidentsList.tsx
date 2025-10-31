@@ -1,7 +1,8 @@
 import { Grid, Heading, Section, Skeleton } from "@radix-ui/themes";
 import { Suspense } from "react";
 
-import { ResidentCard } from "@/people/components";
+import { ResidentCard, ResidentCardError } from "@/people/components";
+import { ErrorBoundary } from "@/ui/components";
 import { useResidentsList } from "./useResidentsList";
 
 interface ResidentsListProps {
@@ -22,9 +23,14 @@ export function ResidentsList({ residentUrls }: ResidentsListProps) {
       </Heading>
       <Grid columns={{ initial: "1", xs: "2", md: "3" }} gap="3">
         {residentIds.map((id) => (
-          <Suspense key={id} fallback={<Skeleton height="150px" />}>
-            <ResidentCard residentId={id} key={id} />
-          </Suspense>
+          <ErrorBoundary
+            key={id}
+            fallback={<ResidentCardError residentId={id} />}
+          >
+            <Suspense fallback={<Skeleton height="150px" />}>
+              <ResidentCard residentId={id} />
+            </Suspense>
+          </ErrorBoundary>
         ))}
       </Grid>
     </Section>

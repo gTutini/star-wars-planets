@@ -2,7 +2,8 @@ import { Flex, Skeleton, Text } from "@radix-ui/themes";
 import { Suspense } from "react";
 import { Car } from "lucide-react";
 
-import { VehicleCard } from "@/vehicles/components";
+import { VehicleCard, VehicleCardError } from "@/vehicles/components";
+import { ErrorBoundary } from "@/ui/components";
 import { useVehiclesList } from "./useVehiclesList";
 
 interface VehiclesListProps {
@@ -33,12 +34,14 @@ export function VehiclesList({ vehicleUrls }: VehiclesListProps) {
       </Flex>
       <Flex direction="column" gap="1">
         {vehicleIds.map((id) => (
-          <Suspense
+          <ErrorBoundary
             key={id}
-            fallback={<Skeleton height="24px" width="150px" />}
+            fallback={<VehicleCardError vehicleId={id} />}
           >
-            <VehicleCard vehicleId={id} />
-          </Suspense>
+            <Suspense fallback={<Skeleton height="24px" width="150px" />}>
+              <VehicleCard vehicleId={id} />
+            </Suspense>
+          </ErrorBoundary>
         ))}
       </Flex>
     </Flex>
