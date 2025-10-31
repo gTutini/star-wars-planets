@@ -1,7 +1,9 @@
 import { Flex, Grid } from "@radix-ui/themes";
 
-import { fetchFilms, fetchPlanets } from "@/planets/services";
-import { PlanetCard, Pagination } from "@/planets/components";
+import { fetchPlanets } from "@/planets/services";
+import { PlanetCard } from "@/planets/components";
+import { fetchFilms } from "@/films/services";
+import { Pagination } from "@/ui/components";
 
 export interface PlanetListProps {
   search?: string;

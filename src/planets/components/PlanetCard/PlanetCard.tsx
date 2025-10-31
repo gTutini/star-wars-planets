@@ -3,13 +3,13 @@ import Link from "next/link";
 
 import { FilmIcon, EarthIcon } from "lucide-react";
 
-import { Film, Planet } from "@/planets/services";
-import { DataList } from "@/ui/DataList";
-
 import { usePlanetCard } from "./usePlanetCard";
 
-import styles from "./PlanetCard.module.scss";
+import { Planet } from "@/planets/contracts";
+import { Film } from "@/films/contracts";
+import { DataList } from "@/ui/components";
 
+import styles from "./PlanetCard.module.scss";
 export interface PlanetCardProps {
   planet: Planet;
   films: Film[];
