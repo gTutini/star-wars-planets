@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 
 import { fetchPlanetById } from "@/planets/services";
+import { ResidentsList } from "@/people/components";
 
 interface PlanetPageProps {
   params: Promise<{ id: string }>;
@@ -177,6 +178,8 @@ export default async function PlanetPage({ params }: PlanetPageProps) {
               </Flex>
             </Card>
           </Grid>
+
+          <ResidentsList residentUrls={planet.residents} />
         </Box>
       </Container>
     </Section>
