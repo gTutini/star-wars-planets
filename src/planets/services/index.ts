@@ -1,6 +1,2 @@
-export { fetchFilms, type Film, type FilmsResponse } from "./fetchFilms";
-export {
-  fetchPlanets,
-  type Planet,
-  type PlanetsResponse,
-} from "./fetchPlanets";
+export { fetchPlanets, type PlanetsResponse } from "./fetchPlanets";
+export { fetchPlanetById } from "./fetchPlanetById";
