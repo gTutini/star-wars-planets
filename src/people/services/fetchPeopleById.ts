@@ -6,7 +6,9 @@ export async function fetchPeopleById(id: string): Promise<Resident> {
   const response = await fetch(url.toString());
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch person with id ${id}`);
+    throw new Error(
+      `Erro ao buscar residente ${id}: ${response.status} ${response.statusText}`
+    );
   }
 
   return response.json();
