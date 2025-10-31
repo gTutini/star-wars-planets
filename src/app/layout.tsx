@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Orbitron } from "next/font/google";
 import { Container, Flex, Heading, Theme } from "@radix-ui/themes";
-import { SvgOrderSymbol } from "@/icons";
+import { SvgOrderSymbol } from "@/ui/icons";
 
 const orbitron = Orbitron({
   variable: "--font-orbitron",
