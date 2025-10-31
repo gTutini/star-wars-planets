@@ -1,4 +1,4 @@
-import { Flex, Grid } from "@radix-ui/themes";
+import { Flex, Grid, Text } from "@radix-ui/themes";
 
 import { fetchPlanets } from "@/planets/services";
 import { PlanetCard } from "@/planets/components";
@@ -17,6 +17,18 @@ export async function PlanetList({ search, page }: PlanetListProps) {
   const currentPage = parseInt(page || "1", 10);
   const hasNext = planets.next !== null;
   const hasPrevious = planets.previous !== null;
+  const hasResults = planets.results.length > 0;
+
+  if (!hasResults && search) {
+    return (
+      <Flex mt="6" justify="center" align="center" py="9">
+        <Text size="5" color="gray">
+          No planets found for &quot;{search}&quot;. Try a different search
+          term.
+        </Text>
+      </Flex>
+    );
+  }
 
   return (
     <Flex mt="6" direction="column" gap="4">
