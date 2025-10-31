@@ -5,4 +5,3 @@ export {
   PlanetListSkeleton,
   type PlanetListProps,
 } from "./PlanetList";
-export { Pagination, type PaginationProps } from "./Pagination";
