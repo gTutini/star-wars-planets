@@ -5,3 +5,7 @@ export {
   PlanetListSkeleton,
   type PlanetListProps,
 } from "./PlanetList";
+export {
+  PlanetDetailCard,
+  type PlanetDetailCardProps,
+} from "./PlanetDetailCard";
