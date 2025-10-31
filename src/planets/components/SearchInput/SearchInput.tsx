@@ -11,14 +11,10 @@ export interface SearchInputProps {
 export function SearchInput({ defaultValue }: SearchInputProps) {
   return (
     <Form action="/">
-      <Grid
-        columns={{ initial: "1fr", xs: "1fr 150px" }}
-        gap="4"
-        align="center"
-      >
+      <Grid mx="auto" gap="4" align="center" maxWidth="300px">
         <TextField.Root
           name="search"
-          placeholder="Buscar planetas..."
+          placeholder="Search planets from this galaxy..."
           size="3"
           defaultValue={defaultValue}
         >
@@ -26,9 +22,7 @@ export function SearchInput({ defaultValue }: SearchInputProps) {
             <Search size={16} />
           </TextField.Slot>
         </TextField.Root>
-        <Button size="3" type="submit">
-          Buscar
-        </Button>
+        <Button type="submit">Search</Button>
       </Grid>
     </Form>
   );
