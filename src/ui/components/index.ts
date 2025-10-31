@@ -4,3 +4,4 @@ export {
   type DataListRootProps,
 } from "./DataList";
 export { Pagination, type PaginationProps } from "./Pagination";
+export { ErrorBoundary } from "./ErrorBoundary";
