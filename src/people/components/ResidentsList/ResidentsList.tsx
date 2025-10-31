@@ -20,7 +20,7 @@ export function ResidentsList({ residentUrls }: ResidentsListProps) {
       <Heading size="6" mb="4">
         Residents
       </Heading>
-      <Grid columns={{ initial: "1", sm: "2" }} gap="3">
+      <Grid columns={{ initial: "1", xs: "2", md: "3" }} gap="3">
         {residentIds.map((id) => (
           <Suspense key={id} fallback={<Skeleton height="96px" />}>
             <ResidentCard residentId={id} key={id} />

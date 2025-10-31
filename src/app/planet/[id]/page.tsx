@@ -57,7 +57,7 @@ export default async function PlanetPage({ params }: PlanetPageProps) {
             </Text>
           </Flex>
 
-          <Grid columns={{ initial: "1", sm: "2" }} gap="4">
+          <Grid columns={{ initial: "1", xs: "2", md: "3" }} gap="4">
             <Card size="3">
               <Flex direction="column" gap="3">
                 <Flex align="center" gap="2">
