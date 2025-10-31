@@ -35,9 +35,9 @@ export default async function PlanetPage({ params }: PlanetPageProps) {
   const planet = await fetchPlanetById(id);
 
   return (
-    <Section size="1">
-      <Container size="3">
-        <Box py="6">
+    <Container size="3">
+      <Box py="6">
+        <Section size="2">
           <Button variant="ghost" asChild mb="6">
             <Link href="/">
               <ArrowLeft size={16} />
@@ -178,10 +178,9 @@ export default async function PlanetPage({ params }: PlanetPageProps) {
               </Flex>
             </Card>
           </Grid>
-
-          <ResidentsList residentUrls={planet.residents} />
-        </Box>
-      </Container>
-    </Section>
+        </Section>
+        <ResidentsList residentUrls={planet.residents} />
+      </Box>
+    </Container>
   );
 }
