@@ -8,8 +8,8 @@ export function PlanetListSkeleton() {
       gapY="5"
       mt="6"
     >
-      {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-        <Skeleton height="400px" key={item} />
+      {Array.from({ length: 8 }, (_, index) => (
+        <Skeleton height="400px" key={index} />
       ))}
     </Grid>
   );
