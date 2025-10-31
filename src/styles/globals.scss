@@ -2,14 +2,17 @@
 @use "./variables" as *;
 @use "./mixins" as *;
 
-:root {
-  --font-montserrat: #{font-montserrat};
+.radix-themes {
+  --default-font-family: var(--font-orbitron), $font-family-base;
+  --heading-font-family: var(--font-orbitron), $font-family-base;
+  --code-font-family: var(--font-orbitron), $font-family-base;
+  --strong-font-family: var(--font-orbitron), $font-family-base;
+  --em-font-family: var(--font-orbitron), $font-family-base;
+  --quote-font-family: var(--font-orbitron), $font-family-base;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-montserrat), $font-family-base;
+  font-family: var(--font-orbitron), $font-family-base;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
