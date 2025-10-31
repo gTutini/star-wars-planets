@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
-import "../styles/globals.scss";
-import { Container, Theme } from "@radix-ui/themes";
+import { Orbitron } from "next/font/google";
+import { Container, Flex, Heading, Theme } from "@radix-ui/themes";
+import { SvgOrderSymbol } from "@/icons";
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const orbitron = Orbitron({
+  variable: "--font-orbitron",
   subsets: ["latin"],
 });
+
+import "../styles/globals.scss";
 
 export const metadata: Metadata = {
   title: "Planetas Star Wars",
@@ -20,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt">
-      <body className={`${montserrat.variable}`}>
+      <body className={`${orbitron.variable}`}>
         <Theme
           radius="full"
           accentColor="ruby"
@@ -28,7 +30,15 @@ export default function RootLayout({
           panelBackground="translucent"
         >
           <Container mb="9" px="4" asChild>
-            <main>{children}</main>
+            <main>
+              <Flex direction="column" align="center">
+                <SvgOrderSymbol fill="#ff949d" />
+                <Heading align="center" size="8">
+                  The Jedi Archives: Planets
+                </Heading>
+              </Flex>
+              {children}
+            </main>
           </Container>
         </Theme>
       </body>
