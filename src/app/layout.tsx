@@ -11,8 +11,9 @@ const orbitron = Orbitron({
 import "../styles/globals.scss";
 
 export const metadata: Metadata = {
-  title: "Planetas Star Wars",
-  description: "Explore os planetas do universo Star Wars",
+  title: "The Jedi Archieves: Planets",
+  description:
+    "Explore the Star Wars universe's planets with detailed information and resident lists.",
 };
 
 export default function RootLayout({
