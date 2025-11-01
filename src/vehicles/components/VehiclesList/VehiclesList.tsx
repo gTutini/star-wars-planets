@@ -38,7 +38,12 @@ export function VehiclesList({ vehicleUrls }: VehiclesListProps) {
           Vehicles:
         </Text>
       </Flex>
-      <Flex direction="column" gap="1" role="list">
+      <Flex
+        direction="column"
+        gap="1"
+        role="list"
+        aria-label={`${vehicleIds.length} vehicle(s) found`}
+      >
         {vehicleIds.map((id) => (
           <div key={id} role="listitem">
             <ErrorBoundary fallback={<VehicleCardError vehicleId={id} />}>

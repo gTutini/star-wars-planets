@@ -13,14 +13,6 @@ vi.mock("@/vehicles/components/VehicleCard", () => ({
   ),
 }));
 
-vi.mock("@/vehicles/components/VehicleCard/VehicleCardError", () => ({
-  VehicleCardError: ({ vehicleId }: { vehicleId: string }) => (
-    <div data-testid={`vehicle-card-error-${vehicleId}`}>
-      Error loading vehicle {vehicleId}
-    </div>
-  ),
-}));
-
 import { useVehiclesList } from "./useVehiclesList";
 
 describe("VehiclesList", () => {
@@ -42,7 +34,7 @@ describe("VehiclesList", () => {
       const region = screen.getByRole("region", { name: "Vehicles list" });
       expect(region).toBeInTheDocument();
 
-      const list = screen.getByRole("list", { name: "3 vehicles found" });
+      const list = screen.getByRole("list", { name: "3 vehicle(s) found" });
       expect(list).toBeInTheDocument();
 
       expect(screen.getByText("Vehicles:")).toBeInTheDocument();
@@ -66,7 +58,7 @@ describe("VehiclesList", () => {
 
       render(<VehiclesList vehicleUrls={["url1"]} />);
 
-      const list = screen.getByRole("list", { name: "1 vehicle found" });
+      const list = screen.getByRole("list", { name: "1 vehicle(s) found" });
       expect(list).toBeInTheDocument();
 
       expect(screen.getByText("Vehicles:")).toBeInTheDocument();
@@ -126,7 +118,7 @@ describe("VehiclesList", () => {
 
       render(<VehiclesList vehicleUrls={vehicleUrls} />);
 
-      const list = screen.getByRole("list", { name: "10 vehicles found" });
+      const list = screen.getByRole("list", { name: "10 vehicle(s) found" });
       expect(list).toBeInTheDocument();
 
       const listItems = screen.getAllByRole("listitem");
@@ -147,7 +139,7 @@ describe("VehiclesList", () => {
 
       render(<VehiclesList vehicleUrls={["url1", "url2", "url3"]} />);
 
-      const list = screen.getByRole("list", { name: "3 vehicles found" });
+      const list = screen.getByRole("list", { name: "3 vehicle(s) found" });
       expect(list).toBeInTheDocument();
 
       expect(screen.getByTestId("vehicle-card-1")).toBeInTheDocument();
