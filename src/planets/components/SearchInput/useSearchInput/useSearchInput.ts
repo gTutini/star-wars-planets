@@ -6,12 +6,14 @@ interface UseSearchInputProps {
   defaultValue?: string;
 }
 
-export function useSearchInput({ defaultValue }: UseSearchInputProps) {
+export function useSearchInput({ defaultValue = "" }: UseSearchInputProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [searchValue, setSearchValue] = useState(defaultValue || "");
+  const [searchValue, setSearchValue] = useState(defaultValue);
 
   const debouncedSearch = useDebouncedCallback((value: string) => {
+    if (!value) return;
+
     const params = new URLSearchParams(searchParams.toString());
 
     if (value) {
@@ -32,6 +34,9 @@ export function useSearchInput({ defaultValue }: UseSearchInputProps) {
   }, [searchValue, debouncedSearch]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.trim() === "") {
+      return;
+    }
     setSearchValue(e.target.value);
   };
 
