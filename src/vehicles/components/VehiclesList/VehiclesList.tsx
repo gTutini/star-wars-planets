@@ -24,11 +24,6 @@ export function VehiclesList({ vehicleUrls }: VehiclesListProps) {
     );
   }
 
-  const vehicleCount = vehicleIds.length;
-  const ariaLabel = `${vehicleCount} ${
-    vehicleCount === 1 ? "vehicle" : "vehicles"
-  } found`;
-
   return (
     <Flex
       direction="column"
@@ -43,7 +38,7 @@ export function VehiclesList({ vehicleUrls }: VehiclesListProps) {
           Vehicles:
         </Text>
       </Flex>
-      <Flex direction="column" gap="1" role="list" aria-label={ariaLabel}>
+      <Flex direction="column" gap="1" role="list">
         {vehicleIds.map((id) => (
           <div key={id} role="listitem">
             <ErrorBoundary fallback={<VehicleCardError vehicleId={id} />}>
