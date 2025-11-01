@@ -75,7 +75,7 @@ describe("PlanetCard", () => {
       const heading = screen.getByRole("heading", { name: "Tatooine" });
       expect(heading).toBeInTheDocument();
 
-      const article = screen.getByRole("article", {
+      const article = screen.getByRole("listitem", {
         name: "Tatooine planet information",
       });
       expect(article).toBeInTheDocument();
