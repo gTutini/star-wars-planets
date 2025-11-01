@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Flex, TextField } from "@radix-ui/themes";
+import { Box, TextField } from "@radix-ui/themes";
 import { Search } from "lucide-react";
 
 import { useSearchInput } from "./useSearchInput";
