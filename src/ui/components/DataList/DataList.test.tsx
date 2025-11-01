@@ -127,7 +127,7 @@ describe("DataList", () => {
 
     it("deve renderizar com labels duplicadas", () => {
       const items = [
-        { label: "Valor", value: "Primeiro" },
+        { label: "Teste", value: "Primeiro" },
         { label: "Valor", value: "Segundo" },
       ];
 
