@@ -18,7 +18,7 @@ export function ResidentsList({ residentUrls }: ResidentsListProps) {
 
   return (
     <Section size="2">
-      <Heading size="6" mb="4">
+      <Heading as="h3" size="6" mb="4">
         Residents
       </Heading>
       <Grid columns={{ initial: "1", xs: "2", md: "3" }} gap="3">
