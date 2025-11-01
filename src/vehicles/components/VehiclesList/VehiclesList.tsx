@@ -15,8 +15,8 @@ export function VehiclesList({ vehicleUrls }: VehiclesListProps) {
 
   if (!hasVehicles) {
     return (
-      <Flex gap="2" align="center" mt="2">
-        <Car size={14} />
+      <Flex gap="2" align="center" mt="2" role="status" aria-live="polite">
+        <Car size={14} aria-hidden="true" />
         <Text size="2" color="gray">
           No vehicles
         </Text>
@@ -24,24 +24,34 @@ export function VehiclesList({ vehicleUrls }: VehiclesListProps) {
     );
   }
 
+  const vehicleCount = vehicleIds.length;
+  const ariaLabel = `${vehicleCount} ${
+    vehicleCount === 1 ? "vehicle" : "vehicles"
+  } found`;
+
   return (
-    <Flex direction="column" gap="2" mt="2">
+    <Flex
+      direction="column"
+      gap="2"
+      mt="2"
+      role="region"
+      aria-label="Vehicles list"
+    >
       <Flex gap="2" align="center">
-        <Car size={14} />
+        <Car size={14} aria-hidden="true" />
         <Text size="2" weight="bold">
           Vehicles:
         </Text>
       </Flex>
-      <Flex direction="column" gap="1">
+      <Flex direction="column" gap="1" role="list" aria-label={ariaLabel}>
         {vehicleIds.map((id) => (
-          <ErrorBoundary
-            key={id}
-            fallback={<VehicleCardError vehicleId={id} />}
-          >
-            <Suspense fallback={<Skeleton height="24px" width="150px" />}>
-              <VehicleCard vehicleId={id} />
-            </Suspense>
-          </ErrorBoundary>
+          <div key={id} role="listitem">
+            <ErrorBoundary fallback={<VehicleCardError vehicleId={id} />}>
+              <Suspense fallback={<Skeleton height="24px" width="150px" />}>
+                <VehicleCard vehicleId={id} />
+              </Suspense>
+            </ErrorBoundary>
+          </div>
         ))}
       </Flex>
     </Flex>
