@@ -25,14 +25,19 @@ export function DataList({
   orientation = "horizontal",
 }: DataListRootProps) {
   return (
-    <RadixDataList.Root size={size} orientation={orientation}>
+    <RadixDataList.Root
+      size={size}
+      orientation={orientation}
+      role="list"
+      aria-label="Data list"
+    >
       {items.map((item) => (
-        <RadixDataList.Item key={item.label} align="start">
+        <RadixDataList.Item key={item.label} align="start" role="listitem">
           <RadixDataList.Label minWidth={item.minWidth || "88px"}>
             <Flex gap="2" align="center">
               {item.icon && (
                 <AccessibleIcon label={item.icon.displayName}>
-                  <item.icon size={16} />
+                  <item.icon size={16} aria-hidden="true" />
                 </AccessibleIcon>
               )}
               {item.label}

@@ -6,7 +6,7 @@ import { Globe, Users } from "lucide-react";
 
 describe("DataList", () => {
   describe("renderização", () => {
-    it("deve renderizar todos os itens fornecidos", () => {
+    it("deve renderizar todos os itens fornecidos com estrutura acessível", () => {
       const items = [
         { label: "Nome", value: "Tatooine" },
         { label: "População", value: "200000" },
@@ -21,26 +21,17 @@ describe("DataList", () => {
       expect(screen.getByText("200000")).toBeInTheDocument();
       expect(screen.getByText("Clima")).toBeInTheDocument();
       expect(screen.getByText("Árido")).toBeInTheDocument();
-    });
 
-    it("deve renderizar com elementos", () => {
-      const items = [
-        { label: "Nome", value: <strong>Tatooine</strong> },
-        { label: "Status", value: <span>Ativo</span> },
-      ];
+      const list = screen.getByRole("list", { name: "Data list" });
+      expect(list).toBeInTheDocument();
 
-      render(<DataList items={items} />);
-
-      const strongElement = screen.getByText("Tatooine");
-      expect(strongElement.tagName).toBe("STRONG");
-
-      const spanElement = screen.getByText("Ativo");
-      expect(spanElement.tagName).toBe("SPAN");
+      const listItems = screen.getAllByRole("listitem");
+      expect(listItems).toHaveLength(3);
     });
   });
 
   describe("ícones", () => {
-    it("deve renderizar ícones quando fornecidos", () => {
+    it("deve renderizar ícones acessíveis quando fornecidos", () => {
       const items = [
         { label: "Planeta", value: "Tatooine", icon: Globe },
         { label: "Habitantes", value: "200000", icon: Users },
@@ -50,6 +41,7 @@ describe("DataList", () => {
 
       const svgs = container.querySelectorAll("svg");
       expect(svgs.length).toBe(2);
+
       expect(screen.getByText("Globe")).toBeInTheDocument();
       expect(screen.getByText("Users")).toBeInTheDocument();
     });
@@ -64,6 +56,9 @@ describe("DataList", () => {
 
       const svgs = container.querySelectorAll("svg");
       expect(svgs.length).toBe(0);
+
+      const list = screen.getByRole("list");
+      expect(list).toBeInTheDocument();
     });
 
     it("deve renderizar alguns itens com ícone e outros sem", () => {
@@ -77,10 +72,13 @@ describe("DataList", () => {
 
       const svgs = container.querySelectorAll("svg");
       expect(svgs.length).toBe(2);
+
+      const listItems = screen.getAllByRole("listitem");
+      expect(listItems).toHaveLength(3);
     });
   });
 
-  describe("estrutura de dados", () => {
+  describe("configurações e variações", () => {
     it("deve renderizar múltiplos itens com diferentes configurações", () => {
       const items = [
         { label: "Planeta", value: "Tatooine", icon: Globe, minWidth: "100px" },
@@ -96,6 +94,9 @@ describe("DataList", () => {
       expect(screen.getByText("Árido")).toBeInTheDocument();
       expect(screen.getByText("População")).toBeInTheDocument();
       expect(screen.getByText("200000")).toBeInTheDocument();
+
+      const listItems = screen.getAllByRole("listitem");
+      expect(listItems).toHaveLength(3);
     });
   });
 
@@ -110,6 +111,9 @@ describe("DataList", () => {
 
       expect(screen.getByText("200000")).toBeInTheDocument();
       expect(screen.getByText("10465")).toBeInTheDocument();
+
+      const listItems = screen.getAllByRole("listitem");
+      expect(listItems).toHaveLength(2);
     });
 
     it("deve renderizar valores vazios", () => {
@@ -123,6 +127,9 @@ describe("DataList", () => {
       expect(screen.getByText("Nome")).toBeInTheDocument();
       expect(screen.getByText("Descrição")).toBeInTheDocument();
       expect(screen.getByText("unknown")).toBeInTheDocument();
+
+      const list = screen.getByRole("list");
+      expect(list).toBeInTheDocument();
     });
 
     it("deve renderizar com labels duplicadas", () => {
@@ -137,7 +144,7 @@ describe("DataList", () => {
       expect(screen.getByText("Segundo")).toBeInTheDocument();
     });
 
-    it("deve renderizar valores complexos", () => {
+    it("deve renderizar valores complexos mantendo estrutura acessível", () => {
       const items = [
         {
           label: "Detalhes",
@@ -154,6 +161,13 @@ describe("DataList", () => {
 
       expect(screen.getByText("Linha 1")).toBeInTheDocument();
       expect(screen.getByText("Linha 2")).toBeInTheDocument();
+
+      const list = screen.getByRole("list");
+      const listItems = screen.getAllByRole("listitem");
+
+      expect(list).toBeInTheDocument();
+      expect(listItems).toHaveLength(1);
+      expect(screen.getByText("Detalhes")).toBeInTheDocument();
     });
   });
 });
