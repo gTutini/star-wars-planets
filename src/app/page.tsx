@@ -16,7 +16,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <Section size="1">
-      <Flex direction="column" mt="6">
+      <Flex justify="center" align="center" direction="column" mt="6">
         <SearchInput defaultValue={search} />
       </Flex>
       <Suspense key={`${search}-${page}`} fallback={<PlanetListSkeleton />}>
