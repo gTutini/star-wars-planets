@@ -8,10 +8,17 @@ vi.mock("next/link", () => ({
   default: ({
     children,
     href,
+    ...props
   }: {
     children: React.ReactNode;
     href: string;
-  }) => <a href={href}>{children}</a>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any;
+  }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
 }));
 
 describe("Pagination", () => {
@@ -56,7 +63,7 @@ describe("Pagination", () => {
 
       render(<Pagination hasNext={true} hasPrevious={true} currentPage={2} />);
 
-      const prevLink = screen.getByRole("link", { name: /prev/i });
+      const prevLink = screen.getByRole("link", { name: "Go to page 1" });
       expect(prevLink).toBeInTheDocument();
       expect(prevLink).toHaveAttribute("href", "/planets?page=1");
     });
@@ -86,7 +93,7 @@ describe("Pagination", () => {
 
       render(<Pagination hasNext={true} hasPrevious={true} currentPage={2} />);
 
-      const nextLink = screen.getByRole("link", { name: /next/i });
+      const nextLink = screen.getByRole("link", { name: "Go to page 3" });
       expect(nextLink).toBeInTheDocument();
       expect(nextLink).toHaveAttribute("href", "/planets?page=3");
     });
@@ -134,8 +141,8 @@ describe("Pagination", () => {
 
       render(<Pagination hasNext={true} hasPrevious={true} currentPage={11} />);
 
-      const prevLink = screen.getByRole("link", { name: /prev/i });
-      const nextLink = screen.getByRole("link", { name: /next/i });
+      const prevLink = screen.getByRole("link", { name: "Go to page 10" });
+      const nextLink = screen.getByRole("link", { name: "Go to page 12" });
 
       expect(prevLink).toHaveAttribute("href", customPrevURL);
       expect(nextLink).toHaveAttribute("href", customNextURL);
@@ -152,7 +159,7 @@ describe("Pagination", () => {
       render(<Pagination hasNext={true} hasPrevious={false} currentPage={1} />);
 
       const prevButton = screen.getByRole("button", { name: /prev/i });
-      const nextLink = screen.getByRole("link", { name: /next/i });
+      const nextLink = screen.getByRole("link", { name: "Go to page 2" });
 
       expect(prevButton).toBeDisabled();
       expect(nextLink).toHaveAttribute("href", "/planets?page=2");
@@ -169,7 +176,7 @@ describe("Pagination", () => {
         <Pagination hasNext={false} hasPrevious={true} currentPage={10} />
       );
 
-      const prevLink = screen.getByRole("link", { name: /prev/i });
+      const prevLink = screen.getByRole("link", { name: "Go to page 9" });
       const nextButton = screen.getByRole("button", { name: /next/i });
 
       expect(prevLink).toHaveAttribute("href", "/planets?page=9");
@@ -203,8 +210,8 @@ describe("Pagination", () => {
 
       render(<Pagination hasNext={true} hasPrevious={true} currentPage={5} />);
 
-      const prevLink = screen.getByRole("link", { name: /prev/i });
-      const nextLink = screen.getByRole("link", { name: /next/i });
+      const prevLink = screen.getByRole("link", { name: "Go to page 4" });
+      const nextLink = screen.getByRole("link", { name: "Go to page 6" });
 
       expect(prevLink).toHaveAttribute("href", "/planets?page=4");
       expect(nextLink).toHaveAttribute("href", "/planets?page=6");
@@ -221,8 +228,12 @@ describe("Pagination", () => {
 
       render(<Pagination hasNext={true} hasPrevious={true} currentPage={2} />);
 
-      expect(screen.getByRole("link", { name: /prev/i })).toBeInTheDocument();
-      expect(screen.getByRole("link", { name: /next/i })).toBeInTheDocument();
+      expect(
+        screen.getByRole("link", { name: "Go to page 1" })
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("link", { name: "Go to page 3" })
+      ).toBeInTheDocument();
     });
 
     it("deve ter os botões acessíveis por role quando desabilitados", () => {
@@ -237,6 +248,90 @@ describe("Pagination", () => {
 
       expect(screen.getByRole("button", { name: /prev/i })).toBeInTheDocument();
       expect(screen.getByRole("button", { name: /next/i })).toBeInTheDocument();
+    });
+
+    it("deve ter role navigation na estrutura de paginação", () => {
+      mockUsePagination.mockReturnValue({
+        previousPageURL: "/planets?page=1",
+        nextPageURL: "/planets?page=3",
+      });
+
+      render(<Pagination hasNext={true} hasPrevious={true} currentPage={2} />);
+
+      const navigation = screen.getByRole("navigation", { name: "Pagination" });
+      expect(navigation).toBeInTheDocument();
+    });
+
+    it("deve ter aria-labels descritivos nos links de navegação", () => {
+      mockUsePagination.mockReturnValue({
+        previousPageURL: "/planets?page=1",
+        nextPageURL: "/planets?page=3",
+      });
+
+      render(<Pagination hasNext={true} hasPrevious={true} currentPage={2} />);
+
+      const prevLink = screen.getByRole("link", { name: "Go to page 1" });
+      const nextLink = screen.getByRole("link", { name: "Go to page 3" });
+
+      expect(prevLink).toBeInTheDocument();
+      expect(nextLink).toBeInTheDocument();
+    });
+
+    it("deve marcar a página atual com aria-current", () => {
+      mockUsePagination.mockReturnValue({
+        previousPageURL: "/planets?page=4",
+        nextPageURL: "/planets?page=6",
+      });
+
+      render(<Pagination hasNext={true} hasPrevious={true} currentPage={5} />);
+
+      const currentPage = screen.getByText("Page 5");
+      expect(currentPage).toHaveAttribute("aria-current", "page");
+    });
+
+    it("deve ter aria-label descritivo na indicação de página atual", () => {
+      mockUsePagination.mockReturnValue({
+        previousPageURL: "/planets?page=2",
+        nextPageURL: "/planets?page=4",
+      });
+
+      render(<Pagination hasNext={true} hasPrevious={true} currentPage={3} />);
+
+      const currentPageElement = screen.getByLabelText("Current page, page 3");
+      expect(currentPageElement).toBeInTheDocument();
+      expect(currentPageElement).toHaveTextContent("Page 3");
+    });
+
+    it("deve ser navegável por teclado quando botões estão habilitados", () => {
+      mockUsePagination.mockReturnValue({
+        previousPageURL: "/planets?page=1",
+        nextPageURL: "/planets?page=3",
+      });
+
+      render(<Pagination hasNext={true} hasPrevious={true} currentPage={2} />);
+
+      const prevLink = screen.getByRole("link", { name: "Go to page 1" });
+      const nextLink = screen.getByRole("link", { name: "Go to page 3" });
+
+      expect(prevLink).not.toHaveAttribute("tabindex", "-1");
+      expect(nextLink).not.toHaveAttribute("tabindex", "-1");
+    });
+
+    it("deve indicar estado desabilitado para leitores de tela", () => {
+      mockUsePagination.mockReturnValue({
+        previousPageURL: undefined,
+        nextPageURL: undefined,
+      });
+
+      render(
+        <Pagination hasNext={false} hasPrevious={false} currentPage={1} />
+      );
+
+      const prevButton = screen.getByRole("button", { name: /prev/i });
+      const nextButton = screen.getByRole("button", { name: /next/i });
+
+      expect(prevButton).toBeDisabled();
+      expect(nextButton).toBeDisabled();
     });
   });
 });

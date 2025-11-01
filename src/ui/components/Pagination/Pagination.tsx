@@ -23,10 +23,20 @@ export function Pagination({
   });
 
   return (
-    <Flex justify="center" align="center" gap="4" mt="6">
+    <Flex
+      justify="center"
+      align="center"
+      gap="4"
+      mt="6"
+      role="navigation"
+      aria-label="Pagination"
+    >
       <Button variant="soft" disabled={!hasPrevious} asChild={hasPrevious}>
         {hasPrevious && previousPageURL ? (
-          <Link href={previousPageURL}>
+          <Link
+            href={previousPageURL}
+            aria-label={`Go to page ${currentPage - 1}`}
+          >
             <ChevronLeft size={16} />
             Prev
           </Link>
@@ -38,13 +48,18 @@ export function Pagination({
         )}
       </Button>
 
-      <Text size="2" weight="medium">
+      <Text
+        size="2"
+        weight="medium"
+        aria-current="page"
+        aria-label={`Current page, page ${currentPage}`}
+      >
         Page {currentPage}
       </Text>
 
       <Button variant="soft" disabled={!hasNext} asChild={hasNext}>
         {hasNext && nextPageURL ? (
-          <Link href={nextPageURL}>
+          <Link href={nextPageURL} aria-label={`Go to page ${currentPage + 1}`}>
             Next
             <ChevronRight size={16} />
           </Link>
