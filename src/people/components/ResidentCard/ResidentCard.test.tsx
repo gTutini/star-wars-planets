@@ -14,11 +14,13 @@ vi.mock("@radix-ui/themes", async () => {
       size,
       radius,
       color,
+      "aria-label": ariaLabel,
     }: {
       fallback: string;
       size: string;
       radius: string;
       color: string;
+      "aria-label"?: string;
     }) => (
       <div
         data-testid="avatar"
@@ -26,6 +28,7 @@ vi.mock("@radix-ui/themes", async () => {
         data-size={size}
         data-radius={radius}
         data-accent-color={color}
+        aria-label={ariaLabel}
       >
         {fallback}
       </div>
@@ -71,16 +74,28 @@ describe("ResidentCard", () => {
   });
 
   describe("renderização básica", () => {
-    it("deve renderizar nome e informações básicas do residente", async () => {
+    it("deve renderizar card como article com estrutura acessível completa", async () => {
       mockFetchPeopleById.mockResolvedValue(mockResident);
 
       const component = await ResidentCard({ residentId: "1" });
       render(component);
 
+      const article = screen.getByRole("article");
+      expect(article).toBeInTheDocument();
+      expect(article).toHaveAttribute("aria-labelledby", "resident-1-name");
+
+      const heading = screen.getByRole("heading", { name: "Luke Skywalker" });
+      expect(heading).toBeInTheDocument();
+      expect(heading).toHaveAttribute("id", "resident-1-name");
+
       expect(screen.getByText("Luke Skywalker")).toBeInTheDocument();
       expect(screen.getByText("blond")).toBeInTheDocument();
       expect(screen.getByText("blue")).toBeInTheDocument();
       expect(screen.getByText("male")).toBeInTheDocument();
+
+      const avatar = screen.getByTestId("avatar");
+      expect(avatar).toHaveAttribute("aria-label", "Luke Skywalker avatar");
+      expect(avatar).toHaveTextContent("L");
     });
 
     it("deve chamar fetchPeopleById com o ID correto", async () => {
@@ -91,21 +106,29 @@ describe("ResidentCard", () => {
       expect(mockFetchPeopleById).toHaveBeenCalledWith("1");
       expect(mockFetchPeopleById).toHaveBeenCalledTimes(1);
     });
+  });
 
-    it("deve renderizar avatar com inicial do nome", async () => {
+  describe("badges de características", () => {
+    it("deve renderizar badges em lista acessível com AccessibleIcon", async () => {
       mockFetchPeopleById.mockResolvedValue(mockResident);
 
       const component = await ResidentCard({ residentId: "1" });
       render(component);
 
-      const avatar = screen.getByTestId("avatar");
-      expect(avatar).toBeInTheDocument();
-      expect(avatar).toHaveTextContent("L");
-    });
-  });
+      const characteristicsList = screen.getByRole("list", {
+        name: "Characteristics",
+      });
+      expect(characteristicsList).toBeInTheDocument();
 
-  describe("badges de características", () => {
-    it("deve renderizar todas as características do residente", async () => {
+      const badges = screen.getAllByRole("listitem");
+      expect(badges).toHaveLength(3);
+
+      expect(screen.getByText("Hair color")).toBeInTheDocument();
+      expect(screen.getByText("Eye color")).toBeInTheDocument();
+      expect(screen.getByText("Gender")).toBeInTheDocument();
+    });
+
+    it("deve renderizar características customizadas do residente", async () => {
       const resident: Resident = {
         ...mockResident,
         hair_color: "brown",
@@ -125,7 +148,7 @@ describe("ResidentCard", () => {
   });
 
   describe("integração com VehiclesList", () => {
-    it("deve renderizar VehiclesList com URLs de veículos", async () => {
+    it("deve renderizar VehiclesList com quantidade correta de veículos", async () => {
       mockFetchPeopleById.mockResolvedValue(mockResident);
 
       const component = await ResidentCard({ residentId: "1" });
@@ -150,44 +173,6 @@ describe("ResidentCard", () => {
       const vehiclesList = screen.getByTestId("vehicles-list");
       expect(vehiclesList).toHaveTextContent("0 vehicles");
     });
-  });
-
-  describe("cenários de borda", () => {
-    it("deve renderizar com nome longo", async () => {
-      const resident: Resident = {
-        ...mockResident,
-        name: "A Very Long Resident Name That Should Still Display Correctly In The Card",
-      };
-
-      mockFetchPeopleById.mockResolvedValue(resident);
-
-      const component = await ResidentCard({ residentId: "999" });
-      render(component);
-
-      expect(
-        screen.getByText(
-          "A Very Long Resident Name That Should Still Display Correctly In The Card"
-        )
-      ).toBeInTheDocument();
-    });
-
-    it("deve renderizar com características incomuns", async () => {
-      const resident: Resident = {
-        ...mockResident,
-        hair_color: "none",
-        eye_color: "black",
-        gender: "n/a",
-      };
-
-      mockFetchPeopleById.mockResolvedValue(resident);
-
-      const component = await ResidentCard({ residentId: "4" });
-      render(component);
-
-      expect(screen.getByText("none")).toBeInTheDocument();
-      expect(screen.getByText("black")).toBeInTheDocument();
-      expect(screen.getByText("n/a")).toBeInTheDocument();
-    });
 
     it("deve renderizar com muitos veículos", async () => {
       const resident: Resident = {
@@ -202,6 +187,32 @@ describe("ResidentCard", () => {
 
       const vehiclesList = screen.getByTestId("vehicles-list");
       expect(vehiclesList).toHaveTextContent("10 vehicles");
+    });
+  });
+
+  describe("cenários de borda", () => {
+    it("deve renderizar com nome longo e características incomuns", async () => {
+      const resident: Resident = {
+        ...mockResident,
+        name: "A Very Long Resident Name That Should Still Display Correctly In The Card",
+        hair_color: "none",
+        eye_color: "black",
+        gender: "n/a",
+      };
+
+      mockFetchPeopleById.mockResolvedValue(resident);
+
+      const component = await ResidentCard({ residentId: "999" });
+      render(component);
+
+      expect(
+        screen.getByText(
+          "A Very Long Resident Name That Should Still Display Correctly In The Card"
+        )
+      ).toBeInTheDocument();
+      expect(screen.getByText("none")).toBeInTheDocument();
+      expect(screen.getByText("black")).toBeInTheDocument();
+      expect(screen.getByText("n/a")).toBeInTheDocument();
     });
   });
 
