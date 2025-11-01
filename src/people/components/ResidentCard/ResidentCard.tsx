@@ -39,7 +39,6 @@ export async function ResidentCard({ residentId }: ResidentCardProps) {
                 size="3"
                 weight="bold"
                 id={`resident-${residentId}-name`}
-                asChild
               >
                 {resident.name}
               </Heading>
