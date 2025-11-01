@@ -1,4 +1,5 @@
 import {
+  AccessibleIcon,
   Badge,
   Box,
   Card,
@@ -28,36 +29,50 @@ export function PlanetCard({ planet, films }: PlanetCardProps) {
   return (
     <Box asChild maxWidth="400px">
       <Card title={planet.name} asChild>
-        <Link
-          href={`/planet/${planetId}`}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          <Flex align="center" gap="2">
-            <EarthIcon size={32} />
-            <Heading as="h3" size="8">
-              {planet.name}
-            </Heading>
-          </Flex>
-          <Separator my="3" size="4" />
+        <article aria-label={`${planet.name} planet information`}>
+          <Link href={`/planet/${planetId}`}>
+            <Flex align="center" gap="2">
+              <AccessibleIcon label={`${planet.name} planet icon`}>
+                <EarthIcon size={32} />
+              </AccessibleIcon>
+              <Heading as="h3" size="8">
+                {planet.name}
+              </Heading>
+            </Flex>
+            <Separator my="3" size="4" aria-hidden="true" />
 
-          <DataList items={planetData} size="2" />
+            <DataList items={planetData} size="2" />
 
-          {filmTitles.length > 0 && (
-            <>
-              <Flex mt="4" gap="2" align="center">
-                <FilmIcon size={16} />
-                <Text weight="bold">Featured In:</Text>
-              </Flex>
-              <Flex mt="2" gap="2" wrap="wrap">
-                {filmTitles.map((title) => (
-                  <Badge variant="soft" radius="full" key={title}>
-                    {title}
-                  </Badge>
-                ))}
-              </Flex>
-            </>
-          )}
-        </Link>
+            {filmTitles.length > 0 && (
+              <>
+                <Flex mt="4" gap="2" align="center">
+                  <AccessibleIcon label="Films">
+                    <FilmIcon size={16} />
+                  </AccessibleIcon>
+                  <Text weight="bold">Featured In:</Text>
+                </Flex>
+                <Flex
+                  mt="2"
+                  gap="2"
+                  wrap="wrap"
+                  role="list"
+                  aria-label={`Films featuring ${planet.name}`}
+                >
+                  {filmTitles.map((title) => (
+                    <Badge
+                      variant="soft"
+                      radius="full"
+                      key={title}
+                      role="listitem"
+                    >
+                      {title}
+                    </Badge>
+                  ))}
+                </Flex>
+              </>
+            )}
+          </Link>
+        </article>
       </Card>
     </Box>
   );
