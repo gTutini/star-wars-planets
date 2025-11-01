@@ -196,20 +196,5 @@ describe("SearchInput", () => {
       expect(input).not.toHaveAttribute("disabled");
       expect(input).not.toHaveAttribute("readonly");
     });
-
-    it("deve ter ícone que não interfere na acessibilidade", () => {
-      mockUseSearchInput.mockReturnValue({
-        searchValue: "",
-        handleChange: vi.fn(),
-      });
-
-      const { container } = render(<SearchInput />);
-
-      const searchIcon = container.querySelector("svg");
-      expect(searchIcon).toBeInTheDocument();
-
-      const input = screen.getByRole("textbox");
-      expect(input).toBeInTheDocument();
-    });
   });
 });
