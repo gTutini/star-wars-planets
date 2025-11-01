@@ -21,7 +21,14 @@ export async function PlanetList({ search, page }: PlanetListProps) {
 
   if (!hasResults && search) {
     return (
-      <Flex mt="6" justify="center" align="center" py="9">
+      <Flex
+        mt="6"
+        justify="center"
+        align="center"
+        py="9"
+        role="status"
+        aria-live="polite"
+      >
         <Text size="5" color="gray">
           No planets found for &quot;{search}&quot;. Try a different search
           term.
@@ -31,14 +38,26 @@ export async function PlanetList({ search, page }: PlanetListProps) {
   }
 
   return (
-    <Flex mt="6" direction="column" gap="4">
+    <Flex
+      mt="6"
+      direction="column"
+      gap="4"
+      role="region"
+      aria-label="Planets list"
+    >
       <Grid
         columns={{ initial: "1", xs: "2", sm: "3", lg: "4" }}
         gapX="4"
         gapY="5"
+        role="list"
+        aria-label={`${planets.results.length} planets found${
+          search ? ` for "${search}"` : ""
+        }, showing page ${currentPage}`}
       >
         {planets.results.map((planet) => (
-          <PlanetCard key={planet.name} planet={planet} films={films.results} />
+          <div key={planet.name}>
+            <PlanetCard planet={planet} films={films.results} />
+          </div>
         ))}
       </Grid>
 
