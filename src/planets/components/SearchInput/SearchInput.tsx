@@ -19,6 +19,7 @@ export function SearchInput({ defaultValue }: SearchInputProps) {
         size="3"
         value={searchValue}
         onChange={handleChange}
+        name="search"
       >
         <TextField.Slot side="left">
           <Search size={16} />

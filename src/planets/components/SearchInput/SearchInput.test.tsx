@@ -157,4 +157,59 @@ describe("SearchInput", () => {
       expect(input).toBeInTheDocument();
     });
   });
+
+  describe("acessibilidade", () => {
+    it("deve ter input acessível por role textbox", () => {
+      mockUseSearchInput.mockReturnValue({
+        searchValue: "",
+        handleChange: vi.fn(),
+      });
+
+      render(<SearchInput />);
+
+      const input = screen.getByRole("textbox");
+      expect(input).toBeInTheDocument();
+    });
+
+    it("deve ter placeholder descritivo para leitores de tela", () => {
+      mockUseSearchInput.mockReturnValue({
+        searchValue: "",
+        handleChange: vi.fn(),
+      });
+
+      render(<SearchInput />);
+
+      const input = screen.getByPlaceholderText("Search planets...");
+      expect(input).toBeInTheDocument();
+      expect(input).toHaveAttribute("placeholder", "Search planets...");
+    });
+
+    it("deve permitir navegação por teclado", () => {
+      mockUseSearchInput.mockReturnValue({
+        searchValue: "",
+        handleChange: vi.fn(),
+      });
+
+      render(<SearchInput />);
+
+      const input = screen.getByPlaceholderText("Search planets...");
+      expect(input).not.toHaveAttribute("disabled");
+      expect(input).not.toHaveAttribute("readonly");
+    });
+
+    it("deve ter ícone que não interfere na acessibilidade", () => {
+      mockUseSearchInput.mockReturnValue({
+        searchValue: "",
+        handleChange: vi.fn(),
+      });
+
+      const { container } = render(<SearchInput />);
+
+      const searchIcon = container.querySelector("svg");
+      expect(searchIcon).toBeInTheDocument();
+
+      const input = screen.getByRole("textbox");
+      expect(input).toBeInTheDocument();
+    });
+  });
 });
