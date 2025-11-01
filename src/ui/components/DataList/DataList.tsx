@@ -1,4 +1,8 @@
-import { DataList as RadixDataList, Flex } from "@radix-ui/themes";
+import {
+  AccessibleIcon,
+  DataList as RadixDataList,
+  Flex,
+} from "@radix-ui/themes";
 import { LucideIcon } from "lucide-react";
 import { ReactNode } from "react";
 
@@ -26,7 +30,11 @@ export function DataList({
         <RadixDataList.Item key={item.label} align="start">
           <RadixDataList.Label minWidth={item.minWidth || "88px"}>
             <Flex gap="2" align="center">
-              {item.icon && <item.icon size={16} />}
+              {item.icon && (
+                <AccessibleIcon label={item.icon.displayName}>
+                  <item.icon size={16} />
+                </AccessibleIcon>
+              )}
               {item.label}
             </Flex>
           </RadixDataList.Label>
@@ -36,9 +44,3 @@ export function DataList({
     </RadixDataList.Root>
   );
 }
-
-// Exportando partes individuais para uso avançado
-DataList.Root = RadixDataList.Root;
-DataList.Item = RadixDataList.Item;
-DataList.Label = RadixDataList.Label;
-DataList.Value = RadixDataList.Value;
