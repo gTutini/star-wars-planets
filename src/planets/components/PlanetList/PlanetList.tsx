@@ -55,9 +55,7 @@ export async function PlanetList({ search, page }: PlanetListProps) {
         }, showing page ${currentPage}`}
       >
         {planets.results.map((planet) => (
-          <div key={planet.name}>
-            <PlanetCard planet={planet} films={films.results} />
-          </div>
+          <PlanetCard key={planet.name} planet={planet} films={films.results} />
         ))}
       </Grid>
 
