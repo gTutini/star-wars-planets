@@ -28,7 +28,7 @@ export function PlanetCard({ planet, films }: PlanetCardProps) {
 
   return (
     <Box asChild maxWidth="400px">
-      <Card title={planet.name} asChild>
+      <Card role="listitem" title={planet.name} asChild>
         <article aria-label={`${planet.name} planet information`}>
           <Link href={`/planet/${planetId}`}>
             <Flex align="center" gap="2">
