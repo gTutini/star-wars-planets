@@ -3,8 +3,8 @@ import { Suspense } from "react";
 import { Car } from "lucide-react";
 
 import { VehicleCard, VehicleCardError } from "@/vehicles/components";
-import { ErrorBoundary } from "@/ui/components";
 import { useVehiclesList } from "./useVehiclesList";
+import { ErrorBoundary } from "react-error-boundary";
 
 interface VehiclesListProps {
   vehicleUrls: string[];

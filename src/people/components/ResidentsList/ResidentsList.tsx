@@ -2,8 +2,8 @@ import { Grid, Heading, Section, Skeleton } from "@radix-ui/themes";
 import { Suspense } from "react";
 
 import { ResidentCard, ResidentCardError } from "@/people/components";
-import { ErrorBoundary } from "@/ui/components";
 import { useResidentsList } from "./useResidentsList";
+import { ErrorBoundary } from "react-error-boundary";
 
 interface ResidentsListProps {
   residentUrls: string[];
