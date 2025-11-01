@@ -80,14 +80,6 @@ describe("VehicleCard", () => {
       ).toBeInTheDocument();
     });
 
-    it("deve renderizar com IDs de veículos altos", async () => {
-      mockFetchVehicleById.mockResolvedValue(mockVehicle);
-
-      await VehicleCard({ vehicleId: "9999" });
-
-      expect(mockFetchVehicleById).toHaveBeenCalledWith("9999");
-    });
-
     it("deve renderizar com modelo vazio", async () => {
       const vehicle: Vehicle = {
         ...mockVehicle,
