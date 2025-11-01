@@ -28,8 +28,5 @@ export function usePagination({
   return {
     previousPageURL,
     nextPageURL,
-    hasNext,
-    hasPrevious,
-    currentPage,
   };
 }
