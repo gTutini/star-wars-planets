@@ -1,6 +1,6 @@
 "use client";
 
-import { Callout, Card } from "@radix-ui/themes";
+import { AccessibleIcon, Callout, Card } from "@radix-ui/themes";
 import { AlertCircle } from "lucide-react";
 
 interface VehicleCardErrorProps {
@@ -10,9 +10,17 @@ interface VehicleCardErrorProps {
 export function VehicleCardError({ vehicleId }: VehicleCardErrorProps) {
   return (
     <Card size="2">
-      <Callout.Root color="red" size="1">
+      <Callout.Root
+        color="red"
+        size="1"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
         <Callout.Icon>
-          <AlertCircle size={14} />
+          <AccessibleIcon label="Error">
+            <AlertCircle size={14} aria-hidden="true" />
+          </AccessibleIcon>
         </Callout.Icon>
         <Callout.Text>Failed to load vehicle #{vehicleId}</Callout.Text>
       </Callout.Root>
