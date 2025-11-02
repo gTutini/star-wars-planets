@@ -32,11 +32,13 @@ export default function RootLayout({
         >
           <Container mb="9" px="4" asChild>
             <main>
-              <Flex direction="column" align="center">
-                <SvgOrderSymbol fill="#ff949d" />
-                <Heading align="center" size="8">
-                  The Jedi Archives: Planets
-                </Heading>
+              <Flex direction="column" align="center" asChild>
+                <header>
+                  <SvgOrderSymbol fill="#ff949d" />
+                  <Heading align="center" size="8">
+                    The Jedi Archives: Planets
+                  </Heading>
+                </header>
               </Flex>
               {children}
             </main>
