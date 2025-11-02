@@ -70,11 +70,7 @@ export default function Error({
           </Callout.Root>
 
           <Flex gap="3">
-            <Button
-              onClick={() => reset()}
-              size="3"
-              aria-label="Try loading the planet again"
-            >
+            <Button onClick={() => reset()} size="3" aria-label="Try again">
               Try again
             </Button>
             <Button variant="outline" size="3" asChild>
