@@ -9,7 +9,9 @@ vi.mock("./useVehiclesList", () => ({
 
 vi.mock("@/vehicles/components/VehicleCard", () => ({
   VehicleCard: ({ vehicleId }: { vehicleId: string }) => (
-    <div data-testid={`vehicle-card-${vehicleId}`}>Vehicle {vehicleId}</div>
+    <div role="listitem" data-testid={`vehicle-card-${vehicleId}`}>
+      Vehicle {vehicleId}
+    </div>
   ),
 }));
 
