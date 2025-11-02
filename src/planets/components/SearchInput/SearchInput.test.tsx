@@ -159,7 +159,7 @@ describe("SearchInput", () => {
   });
 
   describe("acessibilidade", () => {
-    it("deve ter input acessível por role textbox", () => {
+    it("deve ter role searchbox para identificação apropriada", () => {
       mockUseSearchInput.mockReturnValue({
         searchValue: "",
         handleChange: vi.fn(),
@@ -167,11 +167,38 @@ describe("SearchInput", () => {
 
       render(<SearchInput />);
 
-      const input = screen.getByRole("textbox");
+      const input = screen.getByRole("searchbox");
       expect(input).toBeInTheDocument();
     });
 
-    it("deve ter placeholder descritivo para leitores de tela", () => {
+    it("deve ter aria-label descritivo para leitores de tela", () => {
+      mockUseSearchInput.mockReturnValue({
+        searchValue: "",
+        handleChange: vi.fn(),
+      });
+
+      render(<SearchInput />);
+
+      const input = screen.getByRole("searchbox", {
+        name: "Search for planets by name",
+      });
+      expect(input).toBeInTheDocument();
+      expect(input).toHaveAttribute("aria-label", "Search for planets by name");
+    });
+
+    it("deve ter ícone com label acessível", () => {
+      mockUseSearchInput.mockReturnValue({
+        searchValue: "",
+        handleChange: vi.fn(),
+      });
+
+      render(<SearchInput />);
+
+      const iconLabel = screen.getByText("Search icon");
+      expect(iconLabel).toBeInTheDocument();
+    });
+
+    it("deve ter placeholder descritivo como fallback visual", () => {
       mockUseSearchInput.mockReturnValue({
         searchValue: "",
         handleChange: vi.fn(),
@@ -192,9 +219,23 @@ describe("SearchInput", () => {
 
       render(<SearchInput />);
 
-      const input = screen.getByPlaceholderText("Search planets...");
+      const input = screen.getByRole("searchbox");
       expect(input).not.toHaveAttribute("disabled");
       expect(input).not.toHaveAttribute("readonly");
+    });
+
+    it("deve ser encontrado por getByRole com nome acessível", () => {
+      mockUseSearchInput.mockReturnValue({
+        searchValue: "Tatooine",
+        handleChange: vi.fn(),
+      });
+
+      render(<SearchInput defaultValue="Tatooine" />);
+
+      const input = screen.getByRole("searchbox", {
+        name: "Search for planets by name",
+      });
+      expect(input).toHaveValue("Tatooine");
     });
   });
 });

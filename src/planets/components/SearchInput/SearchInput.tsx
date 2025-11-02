@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, TextField } from "@radix-ui/themes";
+import { AccessibleIcon, Box, TextField } from "@radix-ui/themes";
 import { Search } from "lucide-react";
 
 import { useSearchInput } from "./useSearchInput";
@@ -20,9 +20,13 @@ export function SearchInput({ defaultValue }: SearchInputProps) {
         value={searchValue}
         onChange={handleChange}
         name="search"
+        aria-label="Search for planets by name"
+        role="searchbox"
       >
         <TextField.Slot side="left">
-          <Search size={16} />
+          <AccessibleIcon label="Search icon">
+            <Search size={16} />
+          </AccessibleIcon>
         </TextField.Slot>
       </TextField.Root>
     </Box>
