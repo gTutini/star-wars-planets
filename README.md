@@ -4,12 +4,98 @@ Uma aplicação Next.js moderna que explora planetas do universo Star Wars, dese
 
 ## 📋 Índice
 
+- [Início Rápido](#-início-rápido)
 - [Tecnologias](#-tecnologias)
 - [Arquitetura do Projeto](#-arquitetura-do-projeto)
 - [Padrões de Código](#-padrões-de-código)
-- [Início Rápido](#-início-rápido)
 - [Estrutura de Pastas](#-estrutura-de-pastas)
 - [Testes](#-testes)
+
+## 🚀 Início Rápido
+
+### Pré-requisitos
+
+#### Instalando o Bun
+
+O projeto utiliza [Bun](https://bun.sh/) como runtime e package manager. Para instalar:
+
+**macOS e Linux:**
+
+```bash
+curl -fsSL https://bun.sh/install | bash
+```
+
+**Windows:**
+
+```bash
+powershell -c "irm bun.sh/install.ps1 | iex"
+```
+
+**Verificar instalação:**
+
+```bash
+bun --version
+# Deve exibir a versão instalada (requer v1.0+)
+```
+
+Para mais detalhes, consulte a [documentação oficial do Bun](https://bun.sh/docs/installation).
+
+### Instalação do Projeto
+
+```bash
+# Clone o repositório
+git clone <repo-url>
+cd star-wars-planets
+
+# Instale as dependências
+bun install
+
+# Configure variáveis de ambiente
+cp .env.example .env.local
+# Adicione: NEXT_PUBLIC_API_URL=https://swapi.dev/api
+```
+
+### Desenvolvimento
+
+```bash
+# Servidor de desenvolvimento (Turbopack)
+bun dev
+
+# Abra http://localhost:3000
+```
+
+### Build e Produção
+
+```bash
+# Build otimizado
+bun run build
+
+# Servidor de produção
+bun run start
+```
+
+### Testes
+
+```bash
+# Executar todos os testes
+bun run test
+
+# Modo watch
+bun run test --watch
+
+# Com interface UI
+bun run test --ui
+
+# Cobertura de código
+bun run test --coverage
+```
+
+### Lint
+
+```bash
+# Verificar código
+bun run lint
+```
 
 ## 🛠️ Tecnologias
 
@@ -215,69 +301,7 @@ export default function Error({
 }
 ```
 
-## 🚀 Início Rápido
-
-### Pré-requisitos
-
-- [Bun](https://bun.sh/) v1.0+
-
-### Instalação
-
-```bash
-# Clone o repositório
-git clone <repo-url>
-
-# Instale as dependências
-bun install
-
-# Configure variáveis de ambiente
-cp .env.example .env.local
-# Adicione: NEXT_PUBLIC_API_URL=https://swapi.dev/api
-```
-
-### Desenvolvimento
-
-```bash
-# Servidor de desenvolvimento (Turbopack)
-bun dev
-
-# Abra http://localhost:3000
-```
-
-### Build e Produção
-
-```bash
-# Build otimizado
-bun run build
-
-# Servidor de produção
-bun run start
-```
-
-### Testes
-
-```bash
-# Executar todos os testes
-bun run test
-
-# Modo watch
-bun run test --watch
-
-# Com interface UI
-bun run test --ui
-
-# Cobertura de código
-bun run test --coverage
-```
-
-### Lint
-
-```bash
-# Verificar código
-bun run lint
-```
-
-## 📁 Estrutura de Pastas
+## Estrutura de Pastas
 
 ```
 star-wars-planets/
