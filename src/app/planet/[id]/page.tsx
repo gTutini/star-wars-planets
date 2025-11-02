@@ -1,4 +1,5 @@
 import {
+  AccessibleIcon,
   Box,
   Button,
   Container,
@@ -35,27 +36,37 @@ export default async function PlanetPage({ params }: PlanetPageProps) {
   return (
     <Container size="3">
       <Box py="6">
-        <Section size="2">
+        <Section size="2" aria-labelledby="planet-name">
           <Button variant="ghost" asChild mb="6">
-            <Link href="/">
-              <ArrowLeft size={16} />
+            <Link href="/" aria-label="Return to planets list">
+              <AccessibleIcon label="Back arrow">
+                <ArrowLeft size={16} aria-hidden="true" />
+              </AccessibleIcon>
               Go Back
             </Link>
           </Button>
 
           <Flex direction="column" gap="2" mb="6">
             <Flex align="center" gap="2">
-              <EarthIcon size={48} />
-              <Heading size="9" weight="bold">
+              <AccessibleIcon label={`${planet.name} planet icon`}>
+                <EarthIcon size={48} aria-hidden="true" />
+              </AccessibleIcon>
+              <Heading size="9" weight="bold" id="planet-name">
                 {planet.name}
               </Heading>
             </Flex>
-            <Text size="3" color="gray">
+            <Text size="3" color="gray" id="planet-description">
               Basic details about the planet
             </Text>
           </Flex>
 
-          <Grid columns={{ initial: "1", xs: "2", md: "3" }} gap="4">
+          <Grid
+            columns={{ initial: "1", xs: "2", md: "3" }}
+            gap="4"
+            role="list"
+            aria-labelledby="planet-name"
+            aria-describedby="planet-description"
+          >
             <PlanetDetailCard
               icon={RotateCw}
               title="Rotation Period"
