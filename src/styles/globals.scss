@@ -1,6 +1,7 @@
 @use "@radix-ui/themes/styles.css";
-@use "./variables" as *;
-@use "./mixins" as *;
+
+$font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial,
+  sans-serif;
 
 .radix-themes {
   --default-font-family: var(--font-orbitron), $font-family-base;
@@ -26,10 +27,4 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-}
-
-@include dark-mode {
-  html {
-    color-scheme: dark;
-  }
 }
