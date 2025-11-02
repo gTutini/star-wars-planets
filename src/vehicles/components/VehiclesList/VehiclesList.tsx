@@ -45,13 +45,14 @@ export function VehiclesList({ vehicleUrls }: VehiclesListProps) {
         aria-label={`${vehicleIds.length} vehicle(s) found`}
       >
         {vehicleIds.map((id) => (
-          <div key={id} role="listitem">
-            <ErrorBoundary fallback={<VehicleCardError vehicleId={id} />}>
-              <Suspense fallback={<Skeleton height="24px" width="150px" />}>
-                <VehicleCard vehicleId={id} />
-              </Suspense>
-            </ErrorBoundary>
-          </div>
+          <ErrorBoundary
+            key={id}
+            fallback={<VehicleCardError vehicleId={id} />}
+          >
+            <Suspense fallback={<Skeleton height="24px" width="150px" />}>
+              <VehicleCard vehicleId={id} />
+            </Suspense>
+          </ErrorBoundary>
         ))}
       </Flex>
     </Flex>
