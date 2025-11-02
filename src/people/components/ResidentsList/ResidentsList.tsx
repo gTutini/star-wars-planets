@@ -17,11 +17,16 @@ export function ResidentsList({ residentUrls }: ResidentsListProps) {
   }
 
   return (
-    <Section size="2">
-      <Heading as="h3" size="6" mb="4">
+    <Section size="2" aria-labelledby="residents-heading">
+      <Heading as="h3" size="6" mb="4" id="residents-heading">
         Residents
       </Heading>
-      <Grid columns={{ initial: "1", xs: "2", md: "3" }} gap="3">
+      <Grid
+        columns={{ initial: "1", xs: "2", md: "3" }}
+        gap="3"
+        role="list"
+        aria-label={`${residentIds.length} resident(s)`}
+      >
         {residentIds.map((id) => (
           <ErrorBoundary
             key={id}
