@@ -11,7 +11,7 @@ export async function VehicleCard({ vehicleId }: VehicleCardProps) {
   const vehicle = await fetchVehicleById(vehicleId);
 
   return (
-    <Flex gap="2" align="center" wrap="wrap">
+    <Flex role="listitem" gap="2" align="center" wrap="wrap">
       <Badge variant="soft" color="orange" size="2">
         <AccessibleIcon label="Vehicle">
           <Car size={12} aria-hidden="true" />
