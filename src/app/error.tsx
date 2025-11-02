@@ -9,6 +9,7 @@ import {
   Flex,
   Heading,
   Text,
+  AccessibleIcon,
 } from "@radix-ui/themes";
 import Link from "next/link";
 import { AlertCircle } from "lucide-react";
@@ -32,10 +33,14 @@ export default function Error({
         justify="center"
         gap="6"
         minHeight="60vh"
+        role="alert"
+        aria-live="assertive"
       >
         <Callout.Root color="red" size="3">
           <Callout.Icon>
-            <AlertCircle />
+            <AccessibleIcon label="Error">
+              <AlertCircle aria-hidden="true" />
+            </AccessibleIcon>
           </Callout.Icon>
           <Callout.Text>
             <Heading size="4" mb="2">
@@ -54,11 +59,13 @@ export default function Error({
         </Callout.Root>
 
         <Flex gap="3">
-          <Button onClick={() => reset()} size="3">
+          <Button onClick={() => reset()} size="3" aria-label="Try again">
             Try again
           </Button>
           <Button variant="outline" size="3" asChild>
-            <Link href="/">Go to home</Link>
+            <Link href="/" aria-label="Return to home">
+              Go to home
+            </Link>
           </Button>
         </Flex>
       </Flex>
